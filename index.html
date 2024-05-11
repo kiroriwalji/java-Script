@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stopwatch</title>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: black;
+    }
+    .box {
+      padding: 15px;
+      background-color: black;
+      font-size: 10vw;
+      border-radius: 100px;
+      color: white;
+    }
+    .box-button {
+      display: flex;
+      justify-content: center;
+    }
+    button {
+      font-size: 28px;
+      padding: 10px 30px;
+      font-weight: bolder;
+      margin: 10px;
+      border-radius: 10px;
+      background-color: black;
+      color: white;
+      border: none;
+    }
+    button:hover {
+      box-shadow: 0px 0px 10px rgb(255, 255, 255);
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <p id="stopwatch">00:00:00</p>
+    <div class="box-button">
+      <button onclick="starttimer()">Start</button>
+      <button onclick="stoptimer()">Stop</button>
+      <button onclick="Resettimer()">Reset</button>
+    </div>
+  </div>
+  <script>
+    const timer = document.querySelector('#stopwatch');
+    let hr = 0;
+    let min = 0;
+    let sec = 0;
+    let stoptime = true;
+
+    function starttimer() {
+      if (stoptime == true) {
+        stoptime = false;
+        timercycle();
+      }
+    }
+
+    function stoptimer() {
+      if (stoptime == false) {
+        stoptime = true;
+      }
+    }
+
+    function timercycle() {
+      if (stoptime == false) {
+        sec = parseInt(sec);
+        min = parseInt(min);
+        hr = parseInt(hr);
+
+        sec = sec + 1;
+        if (sec == 60) {
+          min = min + 1;
+          sec = 0;
+        }
+        if (min == 60) {
+          hr = hr + 1;
+          min = 0;
+          sec = 0;
+        }
+        if (sec < 10 || sec == 0) {
+          sec = '0' + sec;
+        }
+        if (min < 10 || min == 0) {
+          min = '0' + min;
+        }
+        if (hr < 10 || hr == 0) {
+          hr = '0' + hr;
+        }
+        timer.innerHTML = hr + ':' + min + ':' + sec;
+        setTimeout(timercycle, 1000);
+      }
+    }
+
+    function Resettimer() {
+      timer.innerHTML = '00:00:00';
+      stoptime = true;
+      hr = 0;
+      sec = 0;
+      min = 0;
+    }
+  </script>
+</body>
+</html>
